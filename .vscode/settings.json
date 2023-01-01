@@ -1,0 +1,11 @@
+{
+    "ruby.useBundler": true,
+    "ruby.lint": {
+        "rubocop": true
+    },
+    "[ruby]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "mbessey.vscode-rufo"
+    },
+}
