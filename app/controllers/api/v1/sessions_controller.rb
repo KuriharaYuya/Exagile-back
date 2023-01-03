@@ -38,6 +38,13 @@ module Api
         end
       end
 
+      def destroy
+        reset_session
+        cookies.delete(:user_id, max_age: 0)
+        cookies.delete(:isLoggedIn, max_age: 0)
+        render json: {}, status: :ok
+      end
+
       private
 
       def session_params
