@@ -25,7 +25,7 @@ module Api
       end
 
       def check
-        return if session[:user_id] != cookies[:user_id]
+        return if session[:user_id] != cookies[:user_id] || cookies[:user_id].nil?
 
         cookies["isLoggedIn"] = {
           value: true,
