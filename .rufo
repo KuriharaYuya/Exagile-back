@@ -1,1 +1,5 @@
+exclude:
+  - "**/.rubocop.yml"
+  - "**/.rubocop_todo.yml"
+
 quote_style :double
