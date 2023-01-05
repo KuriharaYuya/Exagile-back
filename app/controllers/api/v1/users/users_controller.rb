@@ -10,7 +10,7 @@ module Api
           name, email, user_id = user_info.values_at("name", "email", "user_id")
           user = User.new(name:, uid: user_id, email:)
           if user.save!
-            render json: { name:, email:, user_id: }, status: :ok
+            render json: user, status: :ok
           else
             render json: {}, status: :not_acceptable
           end
