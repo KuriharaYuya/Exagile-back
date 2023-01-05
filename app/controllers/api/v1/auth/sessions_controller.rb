@@ -22,7 +22,7 @@ module Api
             httponly: false,
             secure: true,
           }
-          render json: { userName: user.name }, status: :ok
+          render json: { user: }, status: :ok
         end
 
         def check
