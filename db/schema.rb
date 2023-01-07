@@ -17,8 +17,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_06_015754) do
     t.string "desc"
     t.datetime "start"
     t.datetime "end"
-    t.string "start_js"
-    t.string "end_js"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["end"], name: "index_appoints_on_end"

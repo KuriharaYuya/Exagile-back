@@ -7,8 +7,6 @@ class CreateAppoints < ActiveRecord::Migration[7.0]
       t.string :desc
       t.datetime :start
       t.datetime :end
-      t.string :start_js
-      t.string :end_js
 
       t.index :start
       t.index :end

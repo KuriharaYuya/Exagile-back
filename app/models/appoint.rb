@@ -3,7 +3,9 @@ class Appoint < ApplicationRecord
 
   belongs_to :user
 
-  validates :title, :start, :end, :start_js, :end_js, presence: true
+  validates :title, :start, :end, presence: true
+
+  scope :between_dates, ->(start_date, end_date) { where("start >= ? AND end <= ?", start_date, end_date) }
 
   private
 
