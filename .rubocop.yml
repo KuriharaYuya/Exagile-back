@@ -10,3 +10,7 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
+Style/IfUnlessModifier:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false

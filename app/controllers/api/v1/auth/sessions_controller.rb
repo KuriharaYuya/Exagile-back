@@ -2,6 +2,7 @@ module Api
   module V1
     module Auth
       class SessionsController < ApplicationController
+        include SessionHelper
         def create
           decoded_token = JWT.decode(session_params[:access_token], nil, false)
           user_info = decoded_token[0]
@@ -50,14 +51,6 @@ module Api
 
         def session_params
           params.require(:session).permit(:access_token)
-        end
-
-        def logged_in?
-          !!session[:user_id]
-        end
-
-        def current_user
-          @current_user ||= User.find_by(uid: session[:user_id])
         end
       end
     end
