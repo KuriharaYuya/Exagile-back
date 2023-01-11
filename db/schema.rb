@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_06_015754) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_11_062311) do
   create_table "appoints", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "user_id", null: false
     t.string "title"
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_06_015754) do
     t.datetime "end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "content"
     t.index ["end"], name: "index_appoints_on_end"
     t.index ["start"], name: "index_appoints_on_start"
     t.index ["user_id"], name: "fk_rails_7eac5482d4"
