@@ -7,6 +7,17 @@ Rails.application.routes.draw do
       namespace :appoints, path: "/" do
         resources :appoints
       end
+      namespace :characters, path: "/" do
+        resources :characters
+      end
+      namespace :appoint_characters, path: "/" do
+        resources :appoint_characters do
+          collection do
+            get :characters
+            get :appoints
+          end
+        end
+      end
       get "/sessions/check", to: "auth/sessions#check"
       post "/login", to: "auth/sessions#create"
       delete "/logout", to: "auth/sessions#destroy"
