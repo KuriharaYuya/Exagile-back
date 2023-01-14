@@ -19,6 +19,18 @@ module Api
         def appoints
           p "appooints"
         end
+
+        def destroy
+          p "消すぞ"
+          appoint_id = params[:appoint_id]
+          character_id = params[:character_id]
+          relation = AppointCharacter.find_by(appoint_id:, character_id:)
+          if relation.destroy!
+            render json: {}, status: :ok
+          else
+            render json: {}, status: :internal_server_error
+          end
+        end
       end
     end
   end

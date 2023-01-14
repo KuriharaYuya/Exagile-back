@@ -15,6 +15,7 @@ Rails.application.routes.draw do
           collection do
             get :characters
             get :appoints
+            delete :destroy
           end
         end
       end
