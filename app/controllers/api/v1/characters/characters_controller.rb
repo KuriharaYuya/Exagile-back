@@ -21,6 +21,11 @@ module Api
           topics = Topic.bound_topics(appoint_id, character.id)
           render json: { character:, topics: }, status: :ok
         end
+
+        def show
+          character = Character.find(params[:id])
+          render json: { character: }, status: :ok
+        end
       end
     end
   end
