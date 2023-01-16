@@ -52,7 +52,7 @@ module Api
         end
 
         def appoint_params
-          params.require(:appoints).permit(:user_id, :id, :title, :start, :end, :desc,:content)
+          params.require(:appoints).permit(:user_id, :id, :title, :start, :end, :desc, :content)
         end
       end
     end

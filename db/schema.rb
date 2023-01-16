@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_11_062311) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_14_085722) do
+  create_table "appoint_characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "appoint_id"
+    t.string "character_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "appoints", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "user_id", null: false
     t.string "title"
@@ -25,6 +32,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_062311) do
     t.index ["user_id"], name: "fk_rails_7eac5482d4"
   end
 
+  create_table "characters", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", limit: 20, null: false
+    t.text "profile"
+    t.string "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "fk_rails_53a8ea746c"
+  end
+
+  create_table "topics", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "character_id", null: false
+    t.string "title", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "appoint_id", null: false
+    t.index ["appoint_id"], name: "fk_rails_6d133fbabd"
+    t.index ["character_id"], name: "fk_rails_107ac67050"
+  end
+
   create_table "users", primary_key: "uid", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -33,4 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_062311) do
   end
 
   add_foreign_key "appoints", "users", primary_key: "uid"
+  add_foreign_key "characters", "users", primary_key: "uid", on_delete: :cascade
+  add_foreign_key "topics", "appoints", on_delete: :cascade
+  add_foreign_key "topics", "characters", on_delete: :cascade
 end
