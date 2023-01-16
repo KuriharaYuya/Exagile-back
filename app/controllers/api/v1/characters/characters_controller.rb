@@ -26,6 +26,17 @@ module Api
           character = Character.find(params[:id])
           render json: { character: }, status: :ok
         end
+
+        def create
+          appoint_id, keyword = params[:character].values_at("appoint_id", "keyword")
+          return if appoint_id.nil?
+
+          character = current_user.characters.build(name: keyword)
+          character_id = character.id if character.save
+          relation = AppointCharacter.new(character_id:, appoint_id:)
+          relation.save
+          render json: { character: }, status: :ok
+        end
       end
     end
   end
