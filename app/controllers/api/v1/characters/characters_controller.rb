@@ -15,9 +15,11 @@ module Api
           render json: characters, status: :ok
         end
 
-        def show
-          character = Character.find(params[:id])
-          render json: { character: }, status: :ok
+        def details
+          appoint_id = params[:appoint_id]
+          character = Character.find(params[:character_id])
+          topics = Topic.bound_topics(appoint_id, character.id)
+          render json: { character:, topics: }, status: :ok
         end
       end
     end

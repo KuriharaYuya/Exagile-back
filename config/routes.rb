@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         resources :appoints
       end
       namespace :characters, path: "/" do
+        get "characters/details", to: "characters#details"
         resources :characters
       end
       namespace :appoint_characters, path: "/" do
@@ -18,6 +19,9 @@ Rails.application.routes.draw do
             delete :destroy
           end
         end
+      end
+      namespace :topics, path: "/" do
+        resources :topics
       end
       get "/sessions/check", to: "auth/sessions#check"
       post "/login", to: "auth/sessions#create"
