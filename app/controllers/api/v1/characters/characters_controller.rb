@@ -37,6 +37,20 @@ module Api
           relation.save
           render json: { character: }, status: :ok
         end
+
+        def update
+          data = params[:character]
+          name, profile, character_id = data.values_at("name", "profile", "id")
+          character = Character.find(character_id)
+          character.update(name:, profile:)
+          character.save
+          render json: {}, status: :ok
+        end
+
+        def destroy
+          character = Character.find(params[:id])
+          render json: {}, status: :ok if character.destroy!
+        end
       end
     end
   end
