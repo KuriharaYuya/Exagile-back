@@ -24,7 +24,6 @@ module Api
           if appoint.save!
             render json: appoint, status: :ok
           end
-          p appoint.updated_at
         end
 
         def create

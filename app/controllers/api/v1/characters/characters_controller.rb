@@ -7,10 +7,14 @@ module Api
 
         def index
           tgt_word = params[:characters][:tgtWord]
+          appoint_id = params[:characters][:appoint_id]
+          appoint = Appoint.find(appoint_id)
+          appoint_characters_ids = appoint.characters.pluck(:id)
+          characters = current_user.characters.where.not(id: appoint_characters_ids)
           characters = if tgt_word.blank?
-                         current_user.characters.order("updated_at DESC").limit(25)
+                         characters.order("updated_at DESC").limit(25)
                        else
-                         current_user.characters.where("name LIKE ?", "#{tgt_word}%").limit(25)
+                         characters.where("name LIKE ?", "#{tgt_word}%").limit(25)
                        end
           render json: characters, status: :ok
         end
