@@ -6,7 +6,7 @@ module Api
         before_action :authenticate_user
 
         def index
-          tgt_word = params[:characters][:tgtWord]
+          tgt_word = @arams[:characters][:tgtWord]
           appoint_id = params[:characters][:appoint_id]
           appoint = Appoint.find(appoint_id)
           appoint_characters_ids = appoint.characters.pluck(:id)
@@ -19,6 +19,23 @@ module Api
           render json: characters, status: :ok
         end
 
+        def communities_suggestion
+          character_id = params[:id]
+          character = Character.find(character_id)
+          boud_communities_ids = character.communities.pluck(:id)
+          communities = current_user.communities.where.not(id: boud_communities_ids)
+          render json: { communities: }, status: :ok
+        end
+
+        def unregister_community
+          character_id, community_id = params[:character].values_at("character_id", "community_id")
+          character = Character.find(character_id)
+          return unless character.user.id == current_user.id
+
+          relation = CharactersCommunity.find_by(character_id:, community_id:)
+          render json: {}, status: :ok if relation.destroy
+        end
+
         def details
           appoint_id = params[:appoint_id]
           character = Character.find(params[:character_id])
@@ -28,7 +45,9 @@ module Api
 
         def show
           character = Character.find(params[:id])
-          render json: { character: }, status: :ok
+          topics = character.topics
+          communities = character.communities
+          render json: { character:, topics:, communities: }, status: :ok
         end
 
         def create

@@ -9,7 +9,18 @@ Rails.application.routes.draw do
       end
       namespace :characters, path: "/" do
         get "characters/details", to: "characters#details"
-        resources :characters
+        resources :characters do
+          # memberは、特定のid用、collectionは一覧取得用
+          collection do
+            post :unregister_community
+          end
+          member do
+            get :communities_suggestion
+          end
+        end
+      end
+      namespace :characters_communities, path: "/" do
+        resources :characters_communities
       end
       namespace :appoint_characters, path: "/" do
         resources :appoint_characters do
