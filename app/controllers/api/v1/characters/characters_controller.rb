@@ -7,7 +7,7 @@ module Api
         before_action :authenticate_user
 
         def index
-          tgt_word = @arams[:characters][:tgtWord]
+          tgt_word = params[:characters][:tgtWord]
           appoint_id = params[:characters][:appoint_id]
           appoint = Appoint.find(appoint_id)
           appoint_characters_ids = appoint.characters.pluck(:id)
