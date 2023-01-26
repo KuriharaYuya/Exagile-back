@@ -2,13 +2,19 @@ require 'date'
 require 'faker'
 
 user = User.all[0]
+
+5.times do |i|
+  community = user.communities.build(name: "Community#{i}")
+  community.save
+end
+
 50.times do
   character = Character.new(name: Faker::Name.name, user_id: user.uid)
   character.save
 end
 
 7.times do |i|
-  3.times do |j| 
+  3.times do |j|
     start_time = Date.today - 3 + i + j
     end_time = start_time + 1.hour
     appoint = Appoint.create(user_id: user.uid, title: 'Test Appointment', desc: 'This is a test appointment', start: start_time, end: end_time, content: "test")
@@ -16,8 +22,17 @@ end
     characters = Character.where(user_id: user.uid).sample(3)
     characters.each do |character|
       3.times do |k|
-        topic = Topic.create(character_id: character.id, appoint_id: appoint.id, title: "#{k}番目のtopic")
+        Topic.create(character_id: character.id, appoint_id: appoint.id, title: "#{k}番目のtopic")
       end
     end
+  end
+end
+
+Character.all.each do |character|
+  # characterには1~3個のコミュニティを紐づける
+  communities = user.communities.sample(rand(1..3))
+  communities.each do |community|
+    relation = CharactersCommunity.create(character_id: character.id, community_id: community.id)
+    relation.save
   end
 end
