@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
       namespace :characters, path: "/" do
         get "characters/details", to: "characters#details"
+        get "characters/characters_communities", to: "characters#characters_communities"
         resources :characters do
           # memberは、特定のid用、collectionは一覧取得用
           collection do
@@ -33,6 +34,9 @@ Rails.application.routes.draw do
       end
       namespace :topics, path: "/" do
         resources :topics
+      end
+      namespace :communities, path: "/" do
+        resources :communities
       end
       get "/sessions/check", to: "auth/sessions#check"
       post "/login", to: "auth/sessions#create"

@@ -3,6 +3,7 @@ module Api
     module Characters
       class CharactersController < ApplicationController
         include ::Api::V1::Auth::SessionHelper
+        include CharactersCommunitiesHelper
         before_action :authenticate_user
 
         def index
@@ -17,6 +18,11 @@ module Api
                          characters.where("name LIKE ?", "#{tgt_word}%").limit(25)
                        end
           render json: characters, status: :ok
+        end
+
+        def characters_communities
+          characters_with_communities = return_characters_communities
+          render json: { characters: characters_with_communities }, status: :ok
         end
 
         def communities_suggestion
