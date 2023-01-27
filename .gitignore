@@ -29,3 +29,5 @@
 /config/master.key
 
 /db/mysql_data
+
+/.env

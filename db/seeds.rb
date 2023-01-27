@@ -1,7 +1,13 @@
 require 'date'
 require 'faker'
 
-user = User.all[0]
+# rails db:drop && rails db:create && rails db:migrate && rails db:seed
+
+uid = ENV["TEST_USER_ID"]
+name = ENV["TEST_USER_NAME"]
+email = ENV["TEST_USER_EMAIL"]
+user = User.new(uid:, name:, email:)
+user.save
 
 5.times do |i|
   community = user.communities.build(name: "Community#{i}")
@@ -34,5 +40,23 @@ Character.all.each do |character|
   communities.each do |community|
     relation = CharactersCommunity.create(character_id: character.id, community_id: community.id)
     relation.save
+  end
+end
+
+Appoint.all.each do |appoint|
+  # inspired_faqを作成
+  user = User.all[0]
+  rand(2..3).times do |i|
+    faq = Faq.new(user_id: user.uid, inspired_appoint_id: appoint.id, name: "#{appoint.title}の#{i}番目のfaq")
+    faq.save!
+  end
+end
+
+user.appoints.all.each do |appoint|
+  appliable_faqs = user.faqs - appoint.inspired_faqs
+  randomly_selected_faqs = appliable_faqs.sample(3)
+  randomly_selected_faqs.each do |faq|
+    faq.update(applied_appoint_id: appoint.id)
+    faq.save
   end
 end
