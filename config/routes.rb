@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       namespace :characters_communities, path: "/" do
         resources :characters_communities
       end
+      namespace :faqs, path: "/" do
+        resources :faqs
+      end
       namespace :appoint_characters, path: "/" do
         resources :appoint_characters do
           collection do
