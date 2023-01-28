@@ -14,13 +14,18 @@ module Api
 
         def show
           appoint = return_appoint
-          render json: appoint, status: :ok
+          inspired_faqs = appoint.inspired_faqs.sort_by(&:updated_at).reverse
+          applied_faqs = appoint.applied_faqs.sort_by(&:updated_at).reverse
+          faqs = {
+            inspiredFaqs: inspired_faqs,
+            appliedFaqs: applied_faqs
+          }
+          render json: { appoints: { appoint:, faqs: } }, status: :ok
         end
 
         def update
           appoint = return_appoint
           appoint.update(appoint_params)
-          # appoint.update(title: "ほーーーadacbs")
           if appoint.save!
             render json: appoint, status: :ok
           end
@@ -33,7 +38,7 @@ module Api
         end
 
         def destroy
-          appoint = Appoint.find(params[:id])
+          appoint = return_appoint
           render json: {}, status: :ok if appoint.destroy!
         end
 
