@@ -2,6 +2,8 @@ module Api
   module V1
     module Users
       class UsersController < ApplicationController
+        include ::Api::V1::Auth::SessionHelper
+        before_action :authenticate_user, only: :options
         require "jwt"
 
         def create
@@ -16,14 +18,22 @@ module Api
           end
         end
 
-        def index
-          p "yes"
+        def options
+          options = current_user.manipulate_options
+          render json: { options: }, status: :ok
+        end
+
+        def update_options
+          options = user_params[:options]
+          current_user.update(manipulate_options: options)
+          current_user.save
+          render json: { options: }, status: :ok
         end
 
         private
 
         def user_params
-          params.require(:user).permit(:uid, :name, :access_token)
+          params.require(:user).permit(options: [faqs: [sort: [:tags, :created_at], filter: [:tags, :created_at]]])
         end
       end
     end

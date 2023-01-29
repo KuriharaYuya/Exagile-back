@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_27_021152) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_29_042211) do
   create_table "appoint_characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "appoint_id"
     t.string "character_id"
@@ -56,6 +56,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_27_021152) do
     t.index ["user_id"], name: "fk_rails_cac8c778bb"
   end
 
+  create_table "faq_tag_relations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "faq_id", null: false
+    t.string "faq_tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "faq_tags", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "fk_rails_7e2cbfb739"
+  end
+
   create_table "faqs", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.text "content"
@@ -83,11 +98,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_27_021152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.text "manipulate_options"
   end
 
   add_foreign_key "appoints", "users", primary_key: "uid"
   add_foreign_key "characters", "users", primary_key: "uid", on_delete: :cascade
   add_foreign_key "communities", "users", primary_key: "uid"
+  add_foreign_key "faq_tags", "users", primary_key: "uid", on_delete: :cascade
   add_foreign_key "faqs", "users", primary_key: "uid", on_delete: :cascade
   add_foreign_key "topics", "appoints", on_delete: :cascade
   add_foreign_key "topics", "characters", on_delete: :cascade
