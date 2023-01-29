@@ -60,3 +60,12 @@ user.appoints.all.each do |appoint|
     faq.save
   end
 end
+
+5.times do
+  tag = user.faq_tags.build(name: Faker::Lorem.word)
+  tag.save
+end
+
+user.faqs.each do |faq|
+  faq.faq_tags << user.faq_tags.sample(rand(1..3))
+end

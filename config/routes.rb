@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :users, path: "/" do
         post "/signup", to: "users#create"
+        get "/users/options", to: "users#options"
+        put "/users/options", to: "users#update_options"
       end
       namespace :appoints, path: "/" do
         resources :appoints
