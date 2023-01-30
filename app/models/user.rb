@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :faqs
   has_many :faq_tags
   has_many :faq_tag_relations
+  has_many :insights
   serialize :manipulate_options, JSON
   after_initialize :set_manipulate_options
 

@@ -69,3 +69,11 @@ end
 user.faqs.each do |faq|
   faq.faq_tags << user.faq_tags.sample(rand(1..3))
 end
+
+user.appoints.each do |appoint|
+  rand(2..4).times do
+    sentence = Faker::Lorem.sentence(word_count: 4)
+    insight = appoint.insights.build(title: sentence, user_id: user.uid)
+    insight.save
+  end
+end

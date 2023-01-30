@@ -20,7 +20,8 @@ module Api
             inspiredFaqs: inspired_faqs,
             appliedFaqs: applied_faqs
           }
-          render json: { appoints: { appoint:, faqs: } }, status: :ok
+          insight = appoint.insights.sort_by(&:created_at).reverse
+          render json: { appoints: { appoint:, faqs:, insight: } }, status: :ok
         end
 
         def update

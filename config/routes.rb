@@ -43,6 +43,9 @@ Rails.application.routes.draw do
       namespace :communities, path: "/" do
         resources :communities
       end
+      namespace :insights, path: "/" do
+        resources :insights
+      end
       get "/sessions/check", to: "auth/sessions#check"
       post "/login", to: "auth/sessions#create"
       delete "/logout", to: "auth/sessions#destroy"
