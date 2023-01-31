@@ -32,14 +32,13 @@ module Api
         end
 
         def index
-          p current_user
           options = current_user.manipulate_options["faqs"]
           length = current_user.faqs.length
-          data_qty = params[:data_qty].to_i
+          per_page_row = 50
+          data_qty = params[:data_qty].to_i + per_page_row > length ? length : params[:data_qty].to_i + per_page_row
           faqs_data = current_user.faqs.order(created_at: options["sort"]["created_at"])
-          # faqs_data = faqs_data.sort_by { |f| f.faq_tags ? "name" : f.faq_tags.min_by(&:name) }
-          faqs_data = faqs_data.order("faq_tags.name" => :asc)
-          faqs_data = faqs_data.offset(0).limit(data_qty + 50 - 1).includes(:faq_tags)
+          faqs_data = faqs_data.joins(:faq_tags).order("faq_tags.name" => :asc)
+          faqs_data = faqs_data.offset(0).limit(data_qty)
           faqs = faqs_data.map do |faq|
             { faq:, tags: faq.faq_tags }
           end

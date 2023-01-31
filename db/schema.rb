@@ -90,9 +90,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_30_021854) do
     t.boolean "archived", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "retention_level", limit: 1, default: 1, null: false
-    t.datetime "review_at"
-    t.integer "review_count", default: 0
+    t.datetime "reviewed_at"
+    t.boolean "concerning", default: false
     t.index ["appoint_id"], name: "fk_rails_012a331203"
     t.index ["user_id"], name: "fk_rails_d0e6fe893c"
   end

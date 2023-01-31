@@ -6,7 +6,6 @@ module Api
           appoint = Appoint.find(params[:appoint_id])
           character = Character.find(params[:character_id])
           appoint.characters << character
-          p appoint.characters
           render json: { character: }, status: :ok
         end
 
@@ -16,12 +15,7 @@ module Api
           render json: { characters: }, status: :ok
         end
 
-        def appoints
-          p "appooints"
-        end
-
         def destroy
-          p "消すぞ"
           appoint_id = params[:appoint_id]
           character_id = params[:character_id]
           relation = AppointCharacter.find_by(appoint_id:, character_id:)

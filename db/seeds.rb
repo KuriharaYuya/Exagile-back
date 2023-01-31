@@ -46,7 +46,7 @@ end
 Appoint.all.each do |appoint|
   # inspired_faqを作成
   user = User.all[0]
-  rand(2..3).times do |i|
+  rand(5..7).times do |i|
     faq = Faq.new(user_id: user.uid, inspired_appoint_id: appoint.id, name: "#{appoint.title}の#{i}番目のfaq")
     faq.save!
   end

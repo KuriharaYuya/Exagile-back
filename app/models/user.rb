@@ -13,6 +13,6 @@ class User < ApplicationRecord
   private
 
   def set_manipulate_options
-    self.manipulate_options ||= { faqs: { sort: { created_at: "desc", tags: "asc" }, filter: { tags: "" } } }
+    self.manipulate_options ||= { faqs: { sort: { created_at: "desc", tags: "asc" }, filter: { tags: "" } }, insights: { sort: { reviewed_at: "asc"}, filter: {archived: false}}}
   end
 end

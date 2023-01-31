@@ -44,6 +44,9 @@ Rails.application.routes.draw do
         resources :communities
       end
       namespace :insights, path: "/" do
+        get "insights/reviews", to: "insights#reviews"
+        get "insights/concerns", to: "insights#concerns"
+        get "insights/archives", to: "insights#archives"
         resources :insights
       end
       get "/sessions/check", to: "auth/sessions#check"
