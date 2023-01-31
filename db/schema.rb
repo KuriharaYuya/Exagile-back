@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_29_042211) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_30_021854) do
   create_table "appoint_characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "appoint_id"
     t.string "character_id"
@@ -82,6 +82,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_29_042211) do
     t.index ["user_id"], name: "fk_rails_901529645b"
   end
 
+  create_table "insights", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "user_id", null: false
+    t.string "title", limit: 60, null: false
+    t.text "content"
+    t.string "appoint_id", null: false
+    t.boolean "archived", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "reviewed_at"
+    t.boolean "concerning", default: false
+    t.index ["appoint_id"], name: "fk_rails_012a331203"
+    t.index ["user_id"], name: "fk_rails_d0e6fe893c"
+  end
+
   create_table "topics", id: :string, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "character_id", null: false
     t.string "title", null: false
@@ -106,6 +120,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_29_042211) do
   add_foreign_key "communities", "users", primary_key: "uid"
   add_foreign_key "faq_tags", "users", primary_key: "uid", on_delete: :cascade
   add_foreign_key "faqs", "users", primary_key: "uid", on_delete: :cascade
+  add_foreign_key "insights", "appoints"
+  add_foreign_key "insights", "users", primary_key: "uid"
   add_foreign_key "topics", "appoints", on_delete: :cascade
   add_foreign_key "topics", "characters", on_delete: :cascade
 end
