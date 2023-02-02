@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :insights
   serialize :manipulate_options, JSON
   after_initialize :set_manipulate_options
+  has_many :topic_ideas
 
   private
 

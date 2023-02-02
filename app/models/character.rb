@@ -10,4 +10,5 @@ class Character < ApplicationRecord
   validates :name, length: { maximum: 20 }, presence: true
   has_many :characters_communities, dependent: :destroy
   has_many :communities, through: :characters_communities, class_name: 'Community'
+  has_many :topic_ideas, dependent: :destroy
 end

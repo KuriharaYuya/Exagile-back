@@ -77,3 +77,11 @@ user.appoints.each do |appoint|
     insight.save
   end
 end
+
+user.characters.each do |character|
+  rand(3..5).times do
+    sentence = Faker::Lorem.sentence(word_count: 4)
+    topic_idea = character.topic_ideas.build(user_id: user.uid, title: sentence)
+    topic_idea.save
+  end
+end

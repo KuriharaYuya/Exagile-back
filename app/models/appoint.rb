@@ -6,6 +6,7 @@ class Appoint < ApplicationRecord
   has_many :characters, through: :appoint_characters
   has_many :topics
   has_many :insights
+  has_many :topic_ideas
 
   validates :title, :start, :end, presence: true
   scope :between_dates, ->(start_date, end_date) { where("start >= ? AND end <= ?", start_date, end_date) }
