@@ -33,7 +33,7 @@ module Api
         private
 
         def user_params
-          params.require(:user).permit(options: [faqs: [sort: [:tags, :created_at], filter: [:tags, :created_at]]])
+          params.require(:user).permit(:access_token, options: [faqs: [sort: [:tags, :created_at], filter: [:tags, :created_at]]])
         end
       end
     end
