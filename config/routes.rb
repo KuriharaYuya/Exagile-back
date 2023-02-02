@@ -49,6 +49,9 @@ Rails.application.routes.draw do
         get "insights/archives", to: "insights#archives"
         resources :insights
       end
+      namespace :topic_ideas, path: "/" do
+        resources :topic_ideas
+      end
       get "/sessions/check", to: "auth/sessions#check"
       post "/login", to: "auth/sessions#create"
       delete "/logout", to: "auth/sessions#destroy"
