@@ -10,6 +10,7 @@ module Api
           decoded_token = JWT.decode(user_params[:access_token], nil, false)
           user_info = decoded_token[0]
           name, email, user_id = user_info.values_at("name", "email", "user_id")
+          name ||= user_params[:username]
           user = User.new(name:, uid: user_id, email:)
           if user.save!
             render json: user, status: :ok
@@ -33,7 +34,7 @@ module Api
         private
 
         def user_params
-          params.require(:user).permit(:access_token, options: [faqs: [sort: [:tags, :created_at], filter: [:tags, :created_at]]])
+          params.require(:user).permit(:access_token, :username, options: [faqs: [sort: [:tags, :created_at], filter: [:tags, :created_at]]])
         end
       end
     end
