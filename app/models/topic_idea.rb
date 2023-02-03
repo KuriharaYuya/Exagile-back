@@ -7,6 +7,8 @@ class TopicIdea < ApplicationRecord
   belongs_to :user
   belongs_to :character
 
+  validates :idea_type, inclusion: { in: %w[話題 行動] }
+
   private
 
   def set_title_to_default
