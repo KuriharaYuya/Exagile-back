@@ -16,20 +16,20 @@ module Api
         end
 
         def create
-          character_id, title, content, done = params[:topic_ideas].values_at("character_id", "title", "content", "done")
+          character_id, title, content, done, idea_type = params[:topic_ideas].values_at("character_id", "title", "content", "done", "idea_type")
           character = Character.find(character_id)
           return unless character.user.uid == current_user.uid
 
-          idea = character.topic_ideas.build(title:, content:, done:, user_id: current_user.uid)
+          idea = character.topic_ideas.build(title:, content:, done:, user_id: current_user.uid, idea_type:)
           idea.save!
           length = character.topic_ideas.length
           render json: { idea:, length: }, status: :ok
         end
 
         def update
-          title, content, done, id = params[:topic_ideas].values_at("title", "content", "done", "id")
+          title, content, done, id, idea_type = params[:topic_ideas].values_at("title", "content", "done", "id", "idea_type")
           idea = TopicIdea.find(id)
-          idea.update(title:, content:, done:)
+          idea.update(title:, content:, done:, idea_type:)
           render json: { idea: }, status: :ok if idea.save
         end
       end

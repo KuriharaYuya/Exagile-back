@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_31_151742) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_03_111633) do
   create_table "appoint_characters", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "appoint_id"
     t.string "character_id"
@@ -105,6 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_151742) do
     t.boolean "done", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "idea_type", null: false
     t.index ["character_id"], name: "fk_rails_9926023cab"
     t.index ["user_id"], name: "fk_rails_fe9557582c"
   end
