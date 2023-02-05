@@ -1,5 +1,6 @@
 module CharactersCommunitiesHelper
   def return_characters_communities(community_id = nil)
+    p "うす"
     characters = if community_id.nil?
                    current_user.characters.includes(:communities)
                  else
