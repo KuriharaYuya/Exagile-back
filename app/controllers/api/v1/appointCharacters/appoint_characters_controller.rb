@@ -2,6 +2,9 @@ module Api
   module V1
     module AppointCharacters
       class AppointCharactersController < ApplicationController
+        include ::Api::V1::Auth::SessionHelper
+        # createとdestroyには認証が必要
+        before_action :authenticate_user, only: %i[create destroy]
         def create
           appoint = Appoint.find(params[:appoint_id])
           character = Character.find(params[:character_id])
