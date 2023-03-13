@@ -13,7 +13,6 @@ module Api
         end
 
         def show
-          p params, "params"
           appoint = return_appoint
           inspired_faqs = appoint.inspired_faqs.sort_by(&:updated_at).reverse
           applied_faqs = appoint.applied_faqs.sort_by(&:updated_at).reverse
